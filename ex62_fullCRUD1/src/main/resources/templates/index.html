@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Week 7 Appointment Exercise </title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        h3 {
+            font-size: 16px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+</head>
+
+
+
+
+<body>
+<h1>WELCOME</h1>
+<h3>Please Complete the information below and choose an appointment</h3>
+
+<table th:if="${apptList != null AND apptList != ''}">
+
+
+<tr th:each="s : ${apptList}">
+<td th:text="${s.firstName}">Frank </td>
+<td th:text="${s.email}">frank@outlook.com </td>
+<td th:text="${s.apptDate}">2023-10-12</td>
+<td th:text="${s.apptTime}">12:00 </td>
+<td> <a th:href="@{/editAppointmentById/}+${s.id}">Edit</a></td>
+
+<td> <a th:href="@{/deleteAppointmentById/}+${s.id}">Delete</a></td>
+
+</tr>
+
+
+</table>
+
+<br><hr><br>
+
+<form method="post" action="#" th:action="@{/insertAppointment}" th:object="${appt}">
+
+
+<input type="hidden" name="id" th:field="*{id}"> 
+
+<label> First Name: </label>
+<input type="text" name="firstName" th:field="*{firstName}"> 
+<br>
+
+<label> Email: </label>
+<input type="text" name="email" th:field="*{email}"> 
+<br>
+
+
+<label> Date: </label>
+<input type="date" name="apptDate" th:field="*{apptDate}"> 
+<br>
+
+<label> Time: </label>
+<input type="time" name="apptTime" th:field="*{apptTime}"> 
+<br>
+
+<input type="submit" value="GO!">
+
+
+</form>
+
+
+
+</body>
+</html>
